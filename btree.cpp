@@ -5,11 +5,10 @@ struct btree::Node{
   int mValue;
   Node* mLeft;
   Node* mRight;
-  Node(int k,int v) : mKey(k), mValue(v), mLeft(0), mRight(0) {}
-  void insert(int,int,Node*); 
+  Node(int k) : mKey(k), mValue(0), mLeft(0), mRight(0) {}
+  Node* insert(const int&, Node*); 
   Node* find(int,Node*);
 };
-
 
 
 btree::Node* btree::Node::find(int key, Node* node){
@@ -25,22 +24,21 @@ btree::Node* btree::Node::find(int key, Node* node){
   }
 }
 
-void btree::Node::insert(int key, int value, Node* node){
+btree::Node* btree::Node::insert(const int& key, Node* node){
   if(key==mKey)
-    mValue=value;
+    return node;
   else if(key < mKey)
     if(mLeft) 
-      insert(key,value,mLeft);
+      return  insert(key, mLeft);
     else 
-      mLeft = new Node(key,value);
+      return mLeft = new Node(key);
   else
     if(mRight)
-      insert(key,value,mRight);
+      return insert(key,mRight);
     else
-      mRight = new Node(key,value);
+      return mRight = new Node(key);
 }
 
 int& btree::operator[](const int& Key){
-  int Value;
-  Node::insert(Key,Value,root);
+  return root->insert(Key,root)->mValue;
 }
