@@ -30,12 +30,12 @@ btree::Node* btree::Node::insert(const int& key, Node* node){
     return node;
   else if(key < mKey)
     if(mLeft) 
-      return  insert(key, mLeft);
+      return node->insert(key, mLeft);
     else 
       return mLeft = new Node(key);
   else
     if(mRight)
-      return insert(key,mRight);
+      return node->insert(key,mRight);
     else
       return mRight = new Node(key);
 }
@@ -59,6 +59,7 @@ void btree::print_sort(){
   };
   
   List* lptr=0;
+  List* tmp_lptr=0;
   Node* cnode=root;
 
   while(lptr or cnode){
@@ -68,7 +69,9 @@ void btree::print_sort(){
     }
     else{
       cnode=lptr->node;
+      tmp_lptr=lptr->lst;
       delete lptr;
+      lptr=tmp_lptr;
       std::cout << cnode->mKey << std::endl;
       cnode=cnode->mRight;
     }
