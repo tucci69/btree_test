@@ -41,10 +41,13 @@ btree::Node* btree::Node::insert(const int& key, Node* node){
 }
 
 int& btree::operator[](const int& Key){
-  if(root)
-    return root->insert(Key,root)->mValue;
+  if(root){
+    Node* top=root;
+    return top->insert(Key,top)->mValue;
+  }
   else
-    return (new Node(Key))->mValue;
+    root = new Node(Key);
+    return root->mValue;
 }
 
 void btree::print_sort(){
@@ -66,7 +69,7 @@ void btree::print_sort(){
     else{
       cnode=lptr->node;
       delete lptr;
-      cout << cnode->mKey << endl;
+      std::cout << cnode->mKey << std::endl;
       cnode=cnode->mRight;
     }
   }

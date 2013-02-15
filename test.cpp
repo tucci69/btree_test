@@ -5,5 +5,13 @@
 using namespace std;
 int main(){
   btree bt;
-  for(int i=0; i<1000; i++) bt[x]=1;
+  bt[20]=1;
+  bt[10]=1;
+  bt[30]=1;
+  bt[31]=1;
+//  bt[27]=1;
+//  bt[26]=1;
+//  bt[28]=1;
+//  bt[25]=1;
+//  bt.print_sort();
 }
