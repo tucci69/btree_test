@@ -1,4 +1,5 @@
 #include "btree.hpp"
+#include <iostream>
 
 struct btree::Node{
   int mKey;
@@ -40,5 +41,60 @@ btree::Node* btree::Node::insert(const int& key, Node* node){
 }
 
 int& btree::operator[](const int& Key){
-  return root->insert(Key,root)->mValue;
+  if(root)
+    return root->insert(Key,root)->mValue;
+  else
+    return (new Node(Key))->mValue;
 }
+
+void btree::print_sort(){
+  
+  struct List{
+    Node* node;
+    List* lst;
+    List(Node* nd, List* l) : node(nd),lst(l){};
+  };
+  
+  List* lptr=0;
+  Node* cnode=root;
+
+  while(lptr or cnode){
+    if(cnode){
+      lptr = new List( cnode, lptr );
+      cnode=cnode->mLeft;
+    }
+    else{
+      cnode=lptr->node;
+      delete lptr;
+      cout << cnode->mKey << endl;
+      cnode=cnode->mRight;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
