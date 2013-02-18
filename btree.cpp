@@ -1,5 +1,7 @@
 #include "btree.hpp"
 #include <iostream>
+#include <list>
+#include <stack>
 
 struct btree::Node{
   int mKey;
@@ -50,6 +52,8 @@ int& btree::operator[](const int& Key){
     return root->mValue;
 }
 
+#ifndef STACK
+
 void btree::print_sort(){
   
   struct List{
@@ -78,7 +82,29 @@ void btree::print_sort(){
   }
 }
 
+#else
 
+void btree::print_sort(){
+
+  std::stack< Node* > st;
+  Node* cnode=root;
+
+  while( !st.empty() or cnode){
+    if(cnode){
+      st.push(cnode);
+      cnode=cnode->mLeft;
+    }
+    else{
+      st.pop();
+      cnode=st.top();
+      std::cout << cnode->mKey << std::endl;
+      cnode=cnode->mRight;
+    }
+  }
+}
+
+
+#endif
 
 
 
