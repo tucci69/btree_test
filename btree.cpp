@@ -95,8 +95,8 @@ void btree::print_sort(){
       cnode=cnode->mLeft;
     }
     else{
-      st.pop();
       cnode=st.top();
+      st.pop();
       std::cout << cnode->mKey << std::endl;
       cnode=cnode->mRight;
     }
